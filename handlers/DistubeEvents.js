@@ -214,9 +214,17 @@ module.exports = async (client) => {
       .send({
         embeds: [
           new EmbedBuilder()
-            .setColor(client.config.embed.color)
-            .setTitle(`Found a Error...`)
-            .setDescription(String(error).substring(0, 3000)),
+            .setColor(client.config.embed.wrongcolor)
+            .setAuthor({
+              name: "❌ Error Occurred",
+              iconURL: client.user.displayAvatarURL(),
+            })
+            .setDescription(`🚫 **Something went wrong:**\n\`\`\`${String(error).substring(0, 2000)}\`\`\``)
+            .setFooter({
+              text: client.config.embed.footertext,
+              iconURL: client.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
       })
       .then((msg) => {
