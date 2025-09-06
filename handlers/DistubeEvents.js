@@ -185,9 +185,18 @@ module.exports = async (client) => {
         // If auto-joining is disabled and the current queue channel does not match the disconnected channel
         const embed = new EmbedBuilder()
           .setColor(client.config.embed.color)
+          .setAuthor({
+            name: "👋 Disconnected",
+            iconURL: client.user.displayAvatarURL(),
+          })
           .setDescription(
-            `> The bot has been disconnected from the voice channel.`
-          );
+            `🔌 **The bot has been disconnected from the voice channel.**`
+          )
+          .setFooter({
+            text: client.config.embed.footertext,
+            iconURL: client.user.displayAvatarURL(),
+          })
+          .setTimestamp();
 
         const msg = await queue.textChannel.send({ embeds: [embed] });
         setTimeout(() => msg.delete().catch(() => {}), 3000);
