@@ -377,27 +377,40 @@ module.exports = async (client) => {
 
       const newEmbed = new EmbedBuilder()
         .setColor(client.config.embed.color)
-        .setImage(track?.thumbnail)
-        .setTitle(client.getTitle(track))
+        .setAuthor({
+          name: "🎵 Now Playing",
+          iconURL: client.user.displayAvatarURL(),
+        })
+        .setTitle(`🎶 ${client.getTitle(track)}`)
         .setURL(track?.url)
+        .setImage(track?.thumbnail)
         .addFields(
           {
-            name: "**Requested By**",
+            name: "🎤 **Artist**",
+            value: `\`${track.uploader.name || "Unknown"}\``,
+            inline: true,
+          },
+          {
+            name: "👤 **Requested By**",
             value: `\`${track.user.tag}\``,
             inline: true,
           },
           {
-            name: "**Author**",
-            value: `\`${track.uploader.name || "😏"}\``,
+            name: "⏱️ **Duration**",
+            value: `\`${track.formattedDuration}\``,
             inline: true,
           },
           {
-            name: "**Duration**",
-            value: `\`${track.formattedDuration}\``,
-            inline: true,
+            name: "📊 **Queue Status**",
+            value: client.status(freshQueue),
+            inline: false,
           }
         )
-        .setFooter(client.getFooter(track.user));
+        .setFooter({
+          text: `${client.config.embed.footertext} • Requested by ${track.user.username}`,
+          iconURL: track.user.displayAvatarURL(),
+        })
+        .setTimestamp();
 
       await playembed.edit({
         embeds: [newEmbed],
