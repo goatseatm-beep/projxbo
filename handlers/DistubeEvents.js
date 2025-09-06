@@ -318,7 +318,16 @@ module.exports = async (client) => {
         embeds: [
           new EmbedBuilder()
             .setColor(client.config.embed.color)
-            .setDescription(`I cant search \`${quary}\``),
+            .setAuthor({
+              name: "❌ Search Cancelled",
+              iconURL: client.user.displayAvatarURL(),
+            })
+            .setDescription(`🔍 **Cannot search for:** \`${quary}\`\n\n💡 Try a different search term or check your spelling!`)
+            .setFooter({
+              text: client.config.embed.footertext,
+              iconURL: client.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
       })
       .then((msg) => {
