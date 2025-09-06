@@ -342,10 +342,19 @@ module.exports = async (client) => {
       .send({
         embeds: [
           new EmbedBuilder()
-            .setColor(client.config.embed.color)
+            .setColor(client.config.embed.wrongcolor)
+            .setAuthor({
+              name: "❌ No Results Found",
+              iconURL: client.user.displayAvatarURL(),
+            })
             .setDescription(
-              `${client.config.emoji.ERROR} No result found for \`${quary}\`!`
-            ),
+              `🔍 **No results found for:** \`${quary}\`\n\n💡 **Try:**\n• Different keywords\n• Check spelling\n• Use a direct link instead`
+            )
+            .setFooter({
+              text: client.config.embed.footertext,
+              iconURL: client.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
       })
       .then((msg) => {
