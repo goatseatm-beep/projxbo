@@ -31,7 +31,11 @@ module.exports = {
     const tempMessage = await message.reply({
       embeds: [
         {
-          description: "🔍 **Calculating ping...**",
+          author: {
+            name: "🚀 Project X Music System",
+            iconURL: client.user.displayAvatarURL(),
+          },
+          description: "⚡ **Calculating ping...**",
           color: Colors.Blurple,
           footer: { text: "Please wait a moment..." },
         },
