@@ -169,13 +169,13 @@ module.exports = async (client) => {
         songs
           .map(
             (track, index) =>
-              `\` ${i + index + 1}. \` ** ${client.getTitle(track)}** - \`${
+              `\`${i + index + 1}.\` **${client.getTitle(track)}** \n💿 \`${
                 track.isLive
-                  ? `LIVE STREAM`
+                  ? `🔴 LIVE STREAM`
                   : track.formattedDuration.split(` | `)[0]
-              }\` \`${track.user.tag}\``
+              }\` • 👤 \`${track.user.tag}\``
           )
-          .join(`\n`)
+          .join(`\n\n`)
       );
     }
 
@@ -185,11 +185,16 @@ module.exports = async (client) => {
       embeds.push(
         new EmbedBuilder()
           .setAuthor({
-            name: `Queue for ${guild.name}  -  [ ${tracks.length} Tracks ]`,
+            name: `🎵 Music Queue • ${guild.name}`,
             iconURL: guild.iconURL({ dynamic: true }),
           })
           .setColor(client.config.embed.color)
-          .setDescription(desc)
+          .setDescription(`🎶 **Current Queue** • **${tracks.length}** tracks pending\n\n${desc}`)
+          .setFooter({
+            text: `${client.config.embed.footertext} • Page ${i + 1}`,
+            iconURL: guild.iconURL(),
+          })
+          .setTimestamp()
       );
     }
     return embeds;
