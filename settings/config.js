@@ -9,7 +9,13 @@ const defaultSettings = {
 const embedSettings = {
   color: "#72ffc8",
   wrongcolor: Colors.Red,
-  footertext: "By Project X Staff",
+  footertext: "🚀 Project X Music System",
+  brand: {
+    name: "Project X",
+    icon: "🎵",
+    website: "https://projectx.music",
+    tagline: "Next-Gen Music Experience",
+  },
 };
 
 const emojiSettings = {
