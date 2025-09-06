@@ -518,19 +518,27 @@ module.exports = async (client) => {
               embeds: [
                 new EmbedBuilder()
                   .setColor(client.config.embed.color)
+                  .setAuthor({
+                    name: `🚀 ${client.config.embed.brand.name} Music System`,
+                    iconURL: client.user.displayAvatarURL({ dynamic: true }),
+                  })
                   .setTitle(
-                    `${emoji[directory] || "📁"} ${directory} Commands ${
+                    `${emoji[directory] || "📁"} **${directory} Commands** ${
                       emoji[directory] || ""
                     }`
                   )
                   .setDescription(
-                    `>>> ${commands
+                    `🎵 **Available ${directory} Commands:**\n\n${commands
                       .filter((cmd) => cmd.category === directory)
                       .map((cmd) => `\`${cmd.name}\``)
-                      .join(",  ")}`
+                      .join(" • ")}`
                   )
-                  .setThumbnail(client.user.displayAvatarURL())
-                  .setFooter(client.getFooter(user)),
+                  .setThumbnail(client.user.displayAvatarURL({ size: 256 }))
+                  .setFooter({
+                    text: `${client.config.embed.footertext} • Requested by ${user.username}`,
+                    iconURL: user.displayAvatarURL(),
+                  })
+                  .setTimestamp(),
               ],
             })
             .catch(() => {});
