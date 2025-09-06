@@ -240,7 +240,16 @@ module.exports = async (client) => {
         embeds: [
           new EmbedBuilder()
             .setColor(client.config.embed.color)
-            .setTitle(`No Related Song Found for \`${queue?.songs[0].name}\``),
+            .setAuthor({
+              name: "🔍 No Related Songs",
+              iconURL: client.user.displayAvatarURL(),
+            })
+            .setDescription(`🎵 **No related songs found for:** \`${queue?.songs[0].name}\`\n\n💡 Try playing a different song to continue autoplay!`)
+            .setFooter({
+              text: client.config.embed.footertext,
+              iconURL: client.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
       })
       .then((msg) => {
