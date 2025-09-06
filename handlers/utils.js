@@ -229,21 +229,23 @@ module.exports = async (client) => {
     const embed = new EmbedBuilder()
       .setColor(client.config.embed.color)
       .setAuthor({
-        name: "Join a Voice Channel and Type Song Link/Name to Play",
+        name: "🚀 Project X Music System",
         iconURL: client.user.displayAvatarURL(),
       })
+      .setTitle("🎵 **Ready to Rock?**")
       .setDescription(
-        `[Invite Now](${client.config.links.inviteURL}) • [Support Server](${client.config.links.DiscordServer}) • [Website](${client.config.links.Website})`
+        `✨ **Join a Voice Channel and drop your favorite songs!**\n\n🎧 Search by name or paste a direct link\n🔥 High-quality audio streaming\n⚡ Lightning-fast responses\n\n🔗 **Quick Links:**\n[📨 Invite Bot](${client.config.links.inviteURL}) • [💬 Support](${client.config.links.DiscordServer}) • [🌐 Website](${client.config.links.Website})`
       )
       .setImage(
         guild.banner
           ? guild.bannerURL({ size: 4096 })
-          : "http://cdn.wallpaperinhd.net/wp-content/uploads/2018/11/02/Music-Background-Wallpaper-025.jpg"
+          : "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=400&fit=crop"
       )
       .setFooter({
-        text: guild.name,
+        text: `${client.config.embed.footertext} • ${guild.name}`,
         iconURL: guild.iconURL(),
-      });
+      })
+      .setTimestamp();
 
     return embed;
   };
