@@ -26,27 +26,37 @@ module.exports = async (client) => {
         embeds: [
           new EmbedBuilder()
             .setColor(client.config.embed.color)
-            .setDescription(`** [\`${client.getTitle(song)}\`](${song.url}) **`)
+            .setAuthor({
+              name: "🎵 Now Playing",
+              iconURL: client.user.displayAvatarURL(),
+            })
+            .setTitle(`🎶 ${client.getTitle(song)}`)
+            .setURL(song.url)
+            .setThumbnail(song.thumbnail)
             .addFields([
               {
-                name: `Requested By`,
-                value: `\`${song.user.tag}\``,
-                inline: true,
-              },
-              {
-                name: `Author`,
+                name: `🎤 Artist`,
                 value: `\`${song.uploader.name}\``,
                 inline: true,
               },
               {
-                name: `Duration`,
+                name: `👤 Requested By`,
+                value: `\`${song.user.tag}\``,
+                inline: true,
+              },
+              {
+                name: `⏱️ Duration`,
                 value: `\`${song.formattedDuration}\``,
                 inline: true,
               },
             ])
-            .setFooter(client.getFooter(song.user)),
+            .setFooter({
+              text: `${client.config.embed.footertext} • Requested by ${song.user.username}`,
+              iconURL: song.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
-  components: client.buttons(false, queue),
+        components: client.buttons(false, queue),
       })
       .then((msg) => {
         client.temp.set(queue.textChannel.guildId, msg.id);
