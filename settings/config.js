@@ -1,7 +1,7 @@
 const { Colors } = require("discord.js");
 
 const defaultSettings = {
-  TOKEN: process.env.TOKEN || "MTQxMzI1NDg3MzIwMTI1MDQyNg.GDjk8v.aTqLn2U5eXSvSF-A47FvwNVCyvIqVDYiQcnHWM",
+  TOKEN: process.env.TOKEN || "",
   PREFIX: process.env.PREFIX || "!",
   MONGO_URL: process.env.MONGO_URL || null,
 };
