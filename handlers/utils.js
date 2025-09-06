@@ -467,20 +467,24 @@ module.exports = async (client) => {
     const help_embed = new EmbedBuilder()
       .setColor(client.config.embed.color)
       .setAuthor({
-        name: client.user.tag,
+        name: `🚀 ${client.config.embed.brand.name} Music System`,
         iconURL: client.user.displayAvatarURL({ dynamic: true }),
       })
-      .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
+      .setThumbnail(client.user.displayAvatarURL({ size: 256 }))
       .setDescription(
-        `**An advanced Music System with Audio Filtering A unique Music Request System and much more!**`
+        `✨ **${client.config.embed.brand.tagline}**\n\n🎵 An advanced Music System with Audio Filtering, unique Request System and much more!\n\n🔥 **Ready to elevate your server's music experience?**`
       )
       .addFields([
         {
-          name: `Stats`,
-          value: `>>> **:gear: \`${allcommands}\` Commands\n:file_folder: \`${allguilds}\` Guilds\n⌚️ ${botuptime} Uptime\n🏓 \`${client.ws.ping}\` Ping\nMade by [\`Project X Staff\`]**`,
+          name: `📊 **System Stats**`,
+          value: `>>> 🎵 **\`${allcommands}\`** Commands Available\n🏠 **\`${allguilds}\`** Servers Connected\n⏰ **${botuptime}** Online Since\n🏓 **\`${client.ws.ping}ms\`** Response Time\n\n💫 Powered by **[\`${client.config.embed.brand.name}\`]**`,
         },
       ])
-      .setFooter(client.getFooter(user));
+      .setFooter({
+        text: `${client.config.embed.footertext} • Requested by ${user.username}`,
+        iconURL: user.displayAvatarURL(),
+      })
+      .setTimestamp();
 
     const main_msg = await send({
       embeds: [help_embed],
