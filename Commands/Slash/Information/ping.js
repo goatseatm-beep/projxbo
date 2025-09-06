@@ -35,7 +35,11 @@ module.exports = {
     const tempMessage = await interaction.followUp({
       embeds: [
         {
-          description: "🔍 **Calculating ping...**",
+          author: {
+            name: "🚀 Project X Music System",
+            iconURL: client.user.displayAvatarURL(),
+          },
+          description: "⚡ **Calculating ping...**",
           color: Colors.Blurple,
           footer: { text: "Please wait a moment..." },
         },
@@ -53,9 +57,13 @@ module.exports = {
     await interaction.editReply({
       embeds: [
         {
-          title: "🏓 **Pong!**",
-          description: "Here are the latency details:",
-          color: Colors.Gold,
+          author: {
+            name: "🚀 Project X Music System",
+            iconURL: client.user.displayAvatarURL(),
+          },
+          title: "🏓 **Connection Status**",
+          description: "✨ **Here are the latency details:**",
+          color: client.config.embed.color,
           fields: [
             {
               name: "🤖 **Bot Latency**",
@@ -73,19 +81,19 @@ module.exports = {
               inline: true,
             },
             {
-              name: "🌍 **Total Round-Trip Latency**",
+              name: "🌍 **Total Round-Trip**",
               value: `\`${formatMilliseconds(totalLatency)}\``,
               inline: false,
             },
           ],
           thumbnail: {
-            url: "https://i.imgur.com/42hyNO2.png", // Thumbnail image URL
+            url: client.user.displayAvatarURL({ size: 256 }),
           },
           footer: {
-            text: "Bot status: Online ⚡ | All pings measured in milliseconds (ms)",
+            text: `${client.config.embed.footertext} • Status: Online ⚡`,
             icon_url: client.user.displayAvatarURL(),
           },
-          timestamp: new Date(), // Adds timestamp of when the ping was measured
+          timestamp: new Date(),
         },
       ],
     });

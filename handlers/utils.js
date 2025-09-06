@@ -215,8 +215,16 @@ module.exports = async (client) => {
   client.queueembed = (guild) => {
     let embed = new EmbedBuilder()
       .setColor(client.config.embed.color)
-      .setAuthor({ name: `Jugnu Music Queue` })
-      .setDescription("The music queue is empty.");
+      .setAuthor({ 
+        name: `🎵 Music Queue`,
+        iconURL: client.user.displayAvatarURL(),
+      })
+      .setDescription("🎶 **The music queue is empty.**\n\n💡 Add some songs to get started!")
+      .setFooter({
+        text: client.config.embed.footertext,
+        iconURL: guild.iconURL(),
+      })
+      .setTimestamp();
 
     return embed;
   };
@@ -314,30 +322,30 @@ module.exports = async (client) => {
       let queueString = "";
       for (let index = 1; index < Math.min(queue.songs.length, 10); index++) {
         const track = queue.songs[index];
-        queueString += `\`${index}.\` **${client.getTitle(track)}** - ${
-          track.isLive ? "LIVE STREAM" : track.formattedDuration.split(" | ")[0]
-        } - \`${track.user.tag}\`\n`;
+        queueString += `\`${index}.\` **${client.getTitle(track)}** \n💿 ${
+          track.isLive ? "🔴 LIVE STREAM" : track.formattedDuration.split(" | ")[0]
+        } • 👤 \`${track.user.tag}\`\n\n`;
       }
 
       const newQueueEmbed = new EmbedBuilder()
         .setColor(client.config.embed.color)
         .setAuthor({
-          name: `Jugnu Queue - [${queue.songs.length} Tracks]`,
+          name: `🎵 Music Queue • [${queue.songs.length} Tracks]`,
           iconURL: guild.iconURL({ dynamic: true }),
         })
         .addFields([
           {
-            name: `**\`0.\` __CURRENT TRACK__**`,
-            value: `**${client.getTitle(currentSong)}** - ${
+            name: `**\`🎵\` __NOW PLAYING__**`,
+            value: `**${client.getTitle(currentSong)}** \n💿 ${
               currentSong?.isLive
-                ? "LIVE STREAM"
+                ? "🔴 LIVE STREAM"
                 : currentSong?.formattedDuration.split(" | ")[0]
-            } - \`${currentSong?.user.tag}\``,
+            } • 👤 \`${currentSong?.user.tag}\``,
           },
         ]);
 
       if (queueString.length > 0) {
-        newQueueEmbed.setDescription(queueString.substring(0, 2048));
+        newQueueEmbed.setDescription(`🎶 **Up Next:**\n\n${queueString.substring(0, 2048)}`);
       }
 
       await queueembed.edit({ embeds: [newQueueEmbed] });
@@ -610,11 +618,15 @@ module.exports = async (client) => {
     let help_embed = new EmbedBuilder()
       .setColor(client.config.embed.color)
       .setAuthor({
-        name: `My Commands`,
+        name: `🚀 ${client.config.embed.brand.name} Commands`,
         iconURL: client.user.displayAvatarURL({ dynamic: true }),
       })
       .addFields(allCommands)
-      .setFooter(client.getFooter(user));
+      .setFooter({
+        text: `${client.config.embed.footertext} • Requested by ${user.username}`,
+        iconURL: user.displayAvatarURL(),
+      })
+      .setTimestamp();
 
     send({
       embeds: [help_embed],
