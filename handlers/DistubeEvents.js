@@ -286,7 +286,16 @@ module.exports = async (client) => {
         embeds: [
           new EmbedBuilder()
             .setColor(client.config.embed.color)
-            .setDescription(`Queue has ended! No more music to play`),
+            .setAuthor({
+              name: "🏁 Queue Finished",
+              iconURL: client.user.displayAvatarURL(),
+            })
+            .setDescription(`🎵 **Queue has ended!** No more music to play\n\n💡 Add more songs or enable autoplay to keep the music going!`)
+            .setFooter({
+              text: client.config.embed.footertext,
+              iconURL: client.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
       })
       .then((msg) => {
