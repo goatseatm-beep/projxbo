@@ -116,7 +116,7 @@ class JUGNU extends Client {
    */
   getFooter(user) {
     const obj = {
-      text: `Requested By ${user.username}`,
+      text: `${this.config.embed.footertext} • Requested by ${user.username}`,
       iconURL: user.displayAvatarURL(),
     };
 
@@ -125,26 +125,22 @@ class JUGNU extends Client {
 
   embed(interaction, data) {
     let user = interaction.user ? interaction.user : interaction.author;
+    const embed = new EmbedBuilder()
+      .setColor(this.config.embed.color)
+      .setDescription(`${data.substring(0, 3000)}`)
+      .setFooter(this.getFooter(user))
+      .setTimestamp();
+
     if (interaction.deferred) {
       interaction
         .followUp({
-          embeds: [
-            new EmbedBuilder()
-              .setColor(this.config.embed.color)
-              .setDescription(`${data.substring(0, 3000)}`)
-              .setFooter(this.getFooter(user)),
-          ],
+          embeds: [embed],
         })
         .catch((e) => {});
     } else {
       interaction
         .reply({
-          embeds: [
-            new EmbedBuilder()
-              .setColor(this.config.embed.color)
-              .setDescription(`${data.substring(0, 3000)}`)
-              .setFooter(this.getFooter(user)),
-          ],
+          embeds: [embed],
         })
         .catch((e) => {});
     }
