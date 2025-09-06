@@ -53,9 +53,13 @@ module.exports = {
     await tempMessage.edit({
       embeds: [
         {
-          title: "🏓 **Pong!**",
-          description: "Here are the latency details:",
-          color: Colors.Gold,
+          author: {
+            name: "🚀 Project X Music System",
+            iconURL: client.user.displayAvatarURL(),
+          },
+          title: "🏓 **Connection Status**",
+          description: "✨ **Here are the latency details:**",
+          color: client.config.embed.color,
           fields: [
             {
               name: "🤖 **Bot Latency**",
@@ -73,19 +77,19 @@ module.exports = {
               inline: true,
             },
             {
-              name: "🌍 **Total Round-Trip Latency**",
+              name: "🌍 **Total Round-Trip**",
               value: `\`${formatMilliseconds(totalLatency)}\``,
               inline: false,
             },
           ],
           thumbnail: {
-            url: "https://i.imgur.com/42hyNO2.png", // You can add a custom thumbnail URL for aesthetic purposes
+            url: client.user.displayAvatarURL({ size: 256 }),
           },
           footer: {
-            text: "Bot status: Online ⚡ | All pings measured in milliseconds (ms)",
-            icon_url: client.user.displayAvatarURL(), // Shows the bot's avatar in the footer
+            text: `${client.config.embed.footertext} • Status: Online ⚡`,
+            icon_url: client.user.displayAvatarURL(),
           },
-          timestamp: new Date(), // Adds a timestamp of when the ping was measured
+          timestamp: new Date(),
         },
       ],
     });
