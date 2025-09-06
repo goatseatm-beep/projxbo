@@ -76,30 +76,34 @@ module.exports = async (client) => {
           new EmbedBuilder()
             .setColor(client.config.embed.color)
             .setAuthor({
-              name: `Added to Queue`,
+              name: "✅ Added to Queue",
               iconURL: song.user.displayAvatarURL({ dynamic: true }),
-              url: song.url,
             })
+            .setTitle(`🎵 ${client.getTitle(song)}`)
+            .setURL(song.url)
             .setThumbnail(song.thumbnail)
-            .setDescription(`[\`${client.getTitle(song)}\`](${song.url})`)
             .addFields([
               {
-                name: `Requested By`,
-                value: `\`${song.user.tag}\``,
-                inline: true,
-              },
-              {
-                name: `Author`,
+                name: `🎤 Artist`,
                 value: `\`${song.uploader.name}\``,
                 inline: true,
               },
               {
-                name: `Duration`,
+                name: `👤 Requested By`,
+                value: `\`${song.user.tag}\``,
+                inline: true,
+              },
+              {
+                name: `⏱️ Duration`,
                 value: `\`${song.formattedDuration}\``,
                 inline: true,
               },
             ])
-            .setFooter(client.getFooter(song.user)),
+            .setFooter({
+              text: `${client.config.embed.footertext} • Added by ${song.user.username}`,
+              iconURL: song.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
       })
       .then((msg) => {
