@@ -127,30 +127,34 @@ module.exports = async (client) => {
           new EmbedBuilder()
             .setColor(client.config.embed.color)
             .setAuthor({
-              name: `Playlist Added to Queue`,
+              name: "🎵 Playlist Added",
               iconURL: playlist.user.displayAvatarURL({ dynamic: true }),
-              url: playlist.url,
             })
+            .setTitle(`📋 ${playlist.name}`)
+            .setURL(playlist.url)
             .setThumbnail(playlist.thumbnail)
-            .setDescription(`** [\`${playlist.name}\`](${playlist.url}) **`)
             .addFields([
               {
-                name: `Requested By`,
+                name: `👤 Requested By`,
                 value: `\`${playlist.user.tag}\``,
                 inline: true,
               },
               {
-                name: `Songs`,
+                name: `🎵 Songs`,
                 value: `\`${playlist.songs.length}\``,
                 inline: true,
               },
               {
-                name: `Duration`,
+                name: `⏱️ Total Duration`,
                 value: `\`${playlist.formattedDuration}\``,
                 inline: true,
               },
             ])
-            .setFooter(client.getFooter(playlist.user)),
+            .setFooter({
+              text: `${client.config.embed.footertext} • Added by ${playlist.user.username}`,
+              iconURL: playlist.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
       })
       .then((msg) => {
